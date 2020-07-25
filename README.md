@@ -1,6 +1,6 @@
 # Automated-Mail-Sender
-It is an CLI tool to send email to one or multiple persons with img or pdf attachments.
+It is an CLI tool to Send Emails to One or Multiple Persons with Img or Pdf Attachments.
 
 It can Work with Gmail, Yahoo and Outlook.
 
-It uses SMTP to send Email messages with TLS encryption.
+It uses SMTP to Send Email Messages with TLS Encryption.
