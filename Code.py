@@ -89,129 +89,149 @@ while True:
 server.login(sender_mail,sender_pass)
 print("Succesfully Logged In.\n")
 
-#Asks for One or Multiple Recipients Choice
-recipent_mail = []
+#For Multiple Emails
 while True:
 
-    multiple = str(input("Do You want to Send Mail to One Person (0) or Multiple (1) : "))
+    #Asks for One or Multiple Recipients Choice
+    recipent_mail = []
+    while True:
 
-    if multiple == "0":
-        recipent_mail.append(str(input("\n\tEnter Recipient Email ID : ")))
-        print("\n")
-        break
-    elif multiple == "1":
-        print("\n\tNote That Format of CSV Files Should Be One Email on First Column of Every Row")
-        file_name = str(input("\tEnter File Name to Read Multiple Email ID's From : "))
-        print("\n")
-        
-        #FILE READING 
-        with open(file_name,'r') as csv_file:
-            csv_content = csv.reader(csv_file)
-            for a_csv_content in csv_content:
-                recipent_mail.append(a_csv_content[0])
+        multiple = str(input("Do You want to Send Mail to One Person (0) or Multiple (1) : "))
 
-        break
-    else:
-        print("\nWrong Choice Try Again\n")
+        if multiple == "0":
+            recipent_mail.append(str(input("\n\tEnter Recipient Email ID : ")))
+            print("\n")
+            break
+        elif multiple == "1":
+            print("\n\tNote That Format of CSV Files Should Be One Email on First Column of Every Row")
+            file_name = str(input("\tEnter File Name to Read Multiple Email ID's From : "))
+            print("\n")
+            
+            #FILE READING 
+            with open(file_name,'r') as csv_file:
+                csv_content = csv.reader(csv_file)
+                for a_csv_content in csv_content:
+                    recipent_mail.append(a_csv_content[0])
 
-#Inputs for the subject and body
-msg = EmailMessage()
-subject = str(input("Enter Subject of Email : "))
-content = str(input("Enter Body of Email : "))
-print("\n")
+            break
+        else:
+            print("\nWrong Choice Try Again\n")
 
-#IMAGE ATTACHMENT HERE
-while True:
-    
-    choice = input("Do You Want to Attach Images (Y/N) : ")
-
-    #taking input of images names
-    if choice == "y" or choice == "Y":
-        
-        print("\n\tEnter Images Name One By One with its Format and Type STOP to Stop Attaching\n\tNote That Files Should be in Same Folder as this Script\n")
-
-        capcha = "ASD"
-        images = []
-
-        while capcha != "STOP" and capcha != "stop":
-
-            capcha = str(input("\t\t: "))
-
-            if capcha == "STOP" or capcha == "stop":
-                break
-
-            images.append(capcha)
-
-        break
-
-    elif choice == "n" or choice == "N":
-        break
-
-    else:
-        print("\nWrong Input Try Again\n")
-
-print("\n")
-
-#PDF ATTACHMENT HERE
-while True:
-    
-    choice = input("Do You Want to Attach PDF (Y/N) : ")
-
-    #taking input of images names
-    if choice == "y" or choice == "Y":
-        
-        print("\n\tEnter PDF Names One By One with its Format and Type STOP to Stop Attaching\n\tNote That Files Should be in Same Folder as this Script\n")
-
-        capcha = "ASD"
-        pdf = []
-
-        while capcha != "STOP" and capcha != "stop":
-
-            capcha = str(input("\t\t: "))
-
-            if capcha == "STOP" or capcha == "stop":
-                break
-
-            pdf.append(capcha)
-
-        break
-
-    elif choice == "n" or choice == "N":
-        break
-
-    else:
-        print("\nWrong Input Try Again\n")
-
-print("\n")
-
-#Send the Mail/s
-for one_rec in recipent_mail:
+    #Inputs for the subject and body
     msg = EmailMessage()
-    msg['Subject'] = subject
-    msg['From'] = sender_mail
-    msg['To'] = one_rec
-    msg.set_content = content
-
-    #attaching images one by one
-    for one_image in images:
-        with open(one_image,'rb') as img_file:
-            file_data = img_file.read()
-            file_type = imghdr.what(img_file.name)
-            file_name = img_file.name
-        msg.add_attachment(file_data, maintype='image', subtype=file_type, filename=file_name)
-
-    #attaching pdf one by one
-    for one_pdf in pdf:
-        with open(one_pdf,'rb') as pdf_file:
-            file_data = pdf_file.read()
-            file_name = pdf_file.name
-        msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
-
-    server.send_message(msg)
-    print("The Email has been Succesfully sent to " + one_rec + "\n")
+    subject = str(input("Enter Subject of Email : "))
+    content = str(input("Enter Body of Email : "))
     print("\n")
 
-print("All Jobs are Done !!! Quitting\n")
+    #IMAGE ATTACHMENT HERE
+    while True:
+        
+        choice = input("Do You Want to Attach Images (Y/N) : ")
+
+        #taking input of images names
+        if choice == "y" or choice == "Y":
+            
+            print("\n\tEnter Images Name One By One with its Format and Type STOP to Stop Attaching\n\tNote That Files Should be in Same Folder as this Script\n")
+
+            capcha = "ASD"
+            images = []
+
+            while capcha != "STOP" and capcha != "stop":
+
+                capcha = str(input("\t\t: "))
+
+                if capcha == "STOP" or capcha == "stop":
+                    break
+
+                images.append(capcha)
+
+            break
+
+        elif choice == "n" or choice == "N":
+            break
+
+        else:
+            print("\nWrong Input Try Again\n")
+
+    print("\n")
+
+    #PDF ATTACHMENT HERE
+    while True:
+        
+        choice = input("Do You Want to Attach PDF (Y/N) : ")
+
+        #taking input of images names
+        if choice == "y" or choice == "Y":
+            
+            print("\n\tEnter PDF Names One By One with its Format and Type STOP to Stop Attaching\n\tNote That Files Should be in Same Folder as this Script\n")
+
+            capcha = "ASD"
+            pdf = []
+
+            while capcha != "STOP" and capcha != "stop":
+
+                capcha = str(input("\t\t: "))
+
+                if capcha == "STOP" or capcha == "stop":
+                    break
+
+                pdf.append(capcha)
+
+            break
+
+        elif choice == "n" or choice == "N":
+            break
+
+        else:
+            print("\nWrong Input Try Again\n")
+
+    print("\n")
+
+    #Send the Mail/s
+    for one_rec in recipent_mail:
+        msg = EmailMessage()
+        msg['Subject'] = subject
+        msg['From'] = sender_mail
+        msg['To'] = one_rec
+        msg.set_content = content
+
+        #attaching images one by one
+        for one_image in images:
+            with open(one_image,'rb') as img_file:
+                file_data = img_file.read()
+                file_type = imghdr.what(img_file.name)
+                file_name = img_file.name
+            msg.add_attachment(file_data, maintype='image', subtype=file_type, filename=file_name)
+
+        #attaching pdf one by one
+        for one_pdf in pdf:
+            with open(one_pdf,'rb') as pdf_file:
+                file_data = pdf_file.read()
+                file_name = pdf_file.name
+            msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
+
+        server.send_message(msg)
+        print("The Email has been Succesfully sent to " + one_rec + "\n")
+        print("\n")
+
+    while True:
+
+        choice = str(input("\nDo You Want to Send Another Email (Y/N) : "))
+
+        if choice == "y" or choice == "Y":
+            again = True
+            break
+        elif choice == "n" or choice == "N":
+            again = False
+            break
+        else:
+            print("\nWrong Input Try Again\n")
+
+    if again == False:
+        break
+
+
+print("\nAll Jobs are Done !!! Quitting\n")
 
 #Quits the Server
 server.quit()
